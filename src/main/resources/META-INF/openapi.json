@@ -1,0 +1,125 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Address Book",
+        "version": "1.0.0",
+        "description": "This is an address book API"
+    },
+    "paths": {
+        "/addresses": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Address"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list with all the addresses"
+                    }
+                },
+                "summary": "List of all address"
+            }
+        },
+        "/addresses/{addressId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Address"
+                                }
+                            }
+                        },
+                        "description": "Address returned by id"
+                    }
+                },
+                "summary": "Return address by id"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Address"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "description": "Address created"
+                    }
+                },
+                "summary": "Create new address"
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "content": {
+                            "application/json": {
+
+                            }
+                        },
+                        "description": "Address deleted"
+                    }
+                },
+                "summary": "Delete address by id"
+            },
+            "parameters": [
+                {
+                    "name": "addressId",
+                    "schema": {
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Address": {
+                "title": "Root Type for Address",
+                "description": "",
+                "required": [
+                    "street"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "street": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "id": 1,
+                    "country": "ES",
+                    "street": "First street"
+                }
+            }
+        }
+    }
+}
